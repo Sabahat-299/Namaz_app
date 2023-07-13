@@ -28,7 +28,7 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
               Container(
                 height: 500,
                 width: 400,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   gradient: LinearGradient(
                     colors: [
@@ -57,7 +57,7 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                     alignment: Alignment.center,
                     child: Container(
                         height: 200,
-                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        margin: const EdgeInsets.symmetric(horizontal: 30),
                         width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -67,7 +67,7 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes the position of the shadow
+                              offset: const Offset(0, 3), // changes the position of the shadow
                             ),
                           ],
                         ),
@@ -77,7 +77,7 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Forgot Password",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold,color: AppColor.kPurpleColor),
@@ -86,7 +86,7 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                                 height: 30,
                               ),
 
-                              Container(
+                              SizedBox(
                                 height: 45,
                                 child: MyTextField(
                                   controller: emailText,
@@ -107,10 +107,10 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                VerificationCodeScreen()),
+                                                const VerificationCodeScreen()),
                                       );
                                     },
-                                    child: Text("Send Code")),
+                                    child: const Text("Send Code")),
                               )
                             ],
                           ),
@@ -130,7 +130,7 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                         );
                       },
                       child: Container(
-                          padding: EdgeInsets.only(left: 100),
+                          padding: const EdgeInsets.only(left: 100),
                           child: RichText(
                             text: const TextSpan(
                               children: [

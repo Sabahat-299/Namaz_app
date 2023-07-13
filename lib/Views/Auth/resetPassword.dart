@@ -56,7 +56,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     alignment: Alignment.center,
                     child: Container(
                         height: 260,
-                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        margin: const EdgeInsets.symmetric(horizontal: 30),
                         width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -66,7 +66,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes the position of the shadow
+                              offset: const Offset(0, 3), // changes the position of the shadow
                             ),
                           ],
                         ),
@@ -84,7 +84,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               Container(
                                 height: 30,
                               ),
-                              Container(
+                              SizedBox(
                                 height: 45,
                                 child: TextFormField(
                                   controller: SetPasswordText,
@@ -109,26 +109,26 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               Container(
                                 height: 12,
                               ),
-                              Container(
+                              SizedBox(
                                 height: 45,
                                 child: TextFormField(
                                   controller: ConfirmpasswordText,
                                   decoration: InputDecoration(
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons.lock_open_outlined,
                                         color: AppColor.kLightPurpleColor,
                                       ),
                                       hintText: "Confirm Password",
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             color: AppColor.kLightPurpleColor,
                                             width: 1),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
                                           BorderRadius.circular(10),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color:
                                               AppColor.kLightPurpleColor))),
                                 ),
@@ -163,9 +163,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         );
                       },
                       child: Container(
-                          padding: EdgeInsets.only(left: 100),
+                          padding: const EdgeInsets.only(left: 100),
                           child: RichText(
-                            text: TextSpan(
+                            text: const TextSpan(
                               children: [
                                 TextSpan(
                                   text: 'Remember Now? ',

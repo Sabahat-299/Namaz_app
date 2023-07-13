@@ -67,7 +67,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes the position of the shadow
+                              offset: const Offset(0, 3), // changes the position of the shadow
                             ),
                           ],
                         ),
@@ -119,7 +119,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColor.kPurpleColor,
-                                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(4),),),
                                     onPressed: (
@@ -129,11 +129,11 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ResetPasswordScreen()),
+                                                const ResetPasswordScreen()),
                                       );
 
                                     },
-                                    child: Text("Change Password")),
+                                    child: const Text("Change Password")),
                               )
                             ],
                           ),
@@ -149,13 +149,13 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  LoginScreen()),
+                                  const LoginScreen()),
                         );
                       },
                       child: Container(
-                          padding: EdgeInsets.only(left: 100),
+                          padding: const EdgeInsets.only(left: 100),
                           child: RichText(
-                            text: TextSpan(
+                            text: const TextSpan(
                               children: [
                                 TextSpan(
                                   text: 'Remember Now? ',

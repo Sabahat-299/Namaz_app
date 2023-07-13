@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:namazreminderapp/Views/Auth/Login.dart';
+import 'package:namazreminderapp/Views/Home_Screen/homescreen.dart';
 
 import '../../Utils/colors.dart';
 import '../../Utils/images.dart';
@@ -28,7 +29,7 @@ class _CreateAccountState extends State<CreateAccount> {
               Container(
                 height: 500,
                 width: 400,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   gradient: LinearGradient(
                     colors: [
@@ -57,7 +58,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     alignment: Alignment.center,
                     child: Container(
                         height: 350,
-                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        margin: const EdgeInsets.symmetric(horizontal: 30),
                         width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -67,7 +68,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes the position of the shadow
+                              offset: const Offset(0, 3), // changes the position of the shadow
                             ),
                           ],
                         ),
@@ -77,7 +78,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Create Account",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold,color: AppColor.kPurpleColor),
@@ -85,24 +86,24 @@ class _CreateAccountState extends State<CreateAccount> {
                               Container(
                                 height: 30,
                               ),
-                              Container(
+                              SizedBox(
                                 height: 45,
                                 child: TextFormField(
                                   controller: usernameText,
                                   decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.person,
+                                      suffixIcon: const Icon(Icons.person,
                                           color: AppColor.kLightPurpleColor),
                                       hintText: "Username",
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             color: AppColor.kLightPurpleColor,
                                             width: 1),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color:
                                                   AppColor.kLightPurpleColor))),
                                 ),
@@ -115,7 +116,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 child: TextFormField(
                                   controller: emailText,
                                   decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.email,
+                                      suffixIcon: const Icon(Icons.email,
                                           color: AppColor.kLightPurpleColor),
                                       hintText: "Email",
                                       enabledBorder: OutlineInputBorder(
@@ -127,7 +128,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color:
                                                   AppColor.kLightPurpleColor))),
                                 ),
@@ -140,21 +141,21 @@ class _CreateAccountState extends State<CreateAccount> {
                                 child: TextFormField(
                                   controller: SetPasswordText,
                                   decoration: InputDecoration(
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons.lock_open_outlined,
                                         color: AppColor.kLightPurpleColor,
                                       ),
-                                      hintText: "SetPassword",
+                                      hintText: "Set Password",
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             color: AppColor.kLightPurpleColor,
                                             width: 1),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color:
                                                   AppColor.kLightPurpleColor))),
                                 ),
@@ -167,23 +168,22 @@ class _CreateAccountState extends State<CreateAccount> {
                                 child: TextFormField(
                                   controller: ConfirmPasswordText,
                                   decoration: InputDecoration(
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons.lock_open_outlined,
                                         color: AppColor.kLightPurpleColor,
                                       ),
-                                      hintText: "ConfirmPassword",
+                                      hintText: "Confirm Password",
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             color: AppColor.kLightPurpleColor,
                                             width: 1),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: BorderSide(
-                                              color:
-                                                  AppColor.kLightPurpleColor))),
+                                          borderSide: const BorderSide(
+                                              color: AppColor.kLightPurpleColor))),
                                 ),
                               ),
                               Container(height: 11,),
@@ -192,14 +192,21 @@ class _CreateAccountState extends State<CreateAccount> {
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColor.kPurpleColor,
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 50),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                     ),
-                                    onPressed: () {},
-                                    child: Text("Create")),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()),
+                                      );
+                                    },
+                                    child: const Text("Create")),
                               )
                             ],
                           ),
@@ -219,9 +226,9 @@ class _CreateAccountState extends State<CreateAccount> {
                         );
                       },
                       child: Container(
-                          padding: EdgeInsets.only(left: 100),
+                          padding: const EdgeInsets.only(left: 100),
                           child: RichText(
-                            text: TextSpan(
+                            text: const TextSpan(
                               children: [
                                 TextSpan(
                                   text: 'Already have an Account? ',

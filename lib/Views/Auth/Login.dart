@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Stack(
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3), // changes the position of the shadow
+                              offset: const Offset(0, 3), // changes the position of the shadow
                             ),
                           ],
                         ),
@@ -91,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 45,
                                 child: MyTextField(
                                   hintText: "Enter Email",
+
                                   controller: emailText,
                                   suffixIcon: const Icon(Icons.email_outlined,
                                     color: AppColor.kLightPurpleColor,
@@ -100,26 +101,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 height: 12,
                               ),
-                              Container(
+                              SizedBox(
                                 height: 45,
                                 child: TextFormField(
                                   controller: passwordText,
                                   decoration: InputDecoration(
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons.lock_open_outlined,
                                         color: AppColor.kLightPurpleColor,
                                       ),
                                       hintText: "Password",
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             color: AppColor.kLightPurpleColor,
                                             width: 1),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color:
                                                   AppColor.kLightPurpleColor))),
                                 ),
@@ -145,12 +146,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColor.kPurpleColor,
-                                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(4),),),
                                     onPressed: () {
                                       },
-                                    child: Text("Login")),
+                                    child: const Text("Login")),
                               )
                             ],
                           ),
@@ -166,11 +167,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             context,
                             MaterialPageRoute(
                             builder: (context) =>
-                            CreateAccount()),
+                            const CreateAccount()),
                         );
                       },
                       child: Container(
-                          padding: EdgeInsets.only(left: 100),
+                          padding: const EdgeInsets.only(left: 100),
                           child:RichText(
                             text: const TextSpan(
 

@@ -8,7 +8,7 @@ class MyTextField extends StatelessWidget {
   String hintText;
   final Icon? suffixIcon;
   final Icon? preffixIcon;
-   MyTextField({this.suffixIcon,this.preffixIcon,required this.hintText,required this.controller,Key? key}) : super(key: key);
+   MyTextField({this.suffixIcon,this.preffixIcon,required this.hintText,required this.controller,Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
