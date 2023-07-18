@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:namazreminderapp/Views/Auth/Login.dart';
 import 'package:namazreminderapp/Views/Home_Screen/homescreen.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/Authprovider.dart';
 import '../../Utils/colors.dart';
 import '../../Utils/images.dart';
+import '../../Widget/Textfield.dart';
+import '../../Widget/app_elevated_button.dart';
+import '../../Widget/app_icon_button.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -11,12 +17,13 @@ class CreateAccount extends StatefulWidget {
   @override
   State<CreateAccount> createState() => _CreateAccountState();
 }
-
+ final GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
+bool isValidEmail(String email) {
+  final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+  return emailRegex.hasMatch(email);
+}
 class _CreateAccountState extends State<CreateAccount> {
-  var usernameText = TextEditingController();
-  var emailText = TextEditingController();
-  var SetPasswordText = TextEditingController();
-  var ConfirmPasswordText = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +53,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     bottomLeft: Radius.circular(40),
                   ),
                 ),
+
                 child: Image(
                   height: 30,
                   width: 30,
@@ -74,141 +82,138 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Create Account",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold,color: AppColor.kPurpleColor),
-                              ),
-                              Container(
-                                height: 30,
-                              ),
-                              SizedBox(
-                                height: 45,
-                                child: TextFormField(
-                                  controller: usernameText,
-                                  decoration: InputDecoration(
-                                      suffixIcon: const Icon(Icons.person,
-                                          color: AppColor.kLightPurpleColor),
-                                      hintText: "Username",
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: AppColor.kLightPurpleColor,
-                                            width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: const BorderSide(
-                                              color:
-                                                  AppColor.kLightPurpleColor))),
+                          child: Form(
+                            key: formKey2,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Create Account",
+                                  style: TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.bold,color: AppColor.kPurpleColor),
                                 ),
-                              ),
-                              Container(
-                                height: 12,
-                              ),
-                              Container(
-                                height: 45,
-                                child: TextFormField(
-                                  controller: emailText,
-                                  decoration: InputDecoration(
-                                      suffixIcon: const Icon(Icons.email,
-                                          color: AppColor.kLightPurpleColor),
-                                      hintText: "Email",
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                            color: AppColor.kLightPurpleColor,
-                                            width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: const BorderSide(
-                                              color:
-                                                  AppColor.kLightPurpleColor))),
+                                Container(
+                                  height: 20,
                                 ),
-                              ),
-                              Container(
-                                height: 12,
-                              ),
-                              Container(
-                                height: 45,
-                                child: TextFormField(
-                                  controller: SetPasswordText,
-                                  decoration: InputDecoration(
-                                      suffixIcon: const Icon(
-                                        Icons.lock_open_outlined,
-                                        color: AppColor.kLightPurpleColor,
-                                      ),
-                                      hintText: "Set Password",
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: AppColor.kLightPurpleColor,
-                                            width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: const BorderSide(
-                                              color:
-                                                  AppColor.kLightPurpleColor))),
-                                ),
-                              ),
-                              Container(
-                                height: 12,
-                              ),
-                              Container(
-                                height: 45,
-                                child: TextFormField(
-                                  controller: ConfirmPasswordText,
-                                  decoration: InputDecoration(
-                                      suffixIcon: const Icon(
-                                        Icons.lock_open_outlined,
-                                        color: AppColor.kLightPurpleColor,
-                                      ),
-                                      hintText: "Confirm Password",
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: AppColor.kLightPurpleColor,
-                                            width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: const BorderSide(
-                                              color: AppColor.kLightPurpleColor))),
-                                ),
-                              ),
-                              Container(height: 11,),
-
-                              Center(
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColor.kPurpleColor,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 50),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const HomeScreen()),
-                                      );
+                            Container(
+                                height: 60,
+                                child: Consumer<AuthProvider>(builder: (context , authProvider, child){
+                                  return MyTextField(
+                                    obscureText: false,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Please enter a username"; // Display error message if username is empty
+                                      }
+                                      // Add additional username validation logic if needed
+                                      return null; // Return null if username is valid
                                     },
-                                    child: const Text("Create")),
-                              )
-                            ],
+                                    errorText: "",
+                                    hintText: "Username",
+                                    controller: authProvider.usernameText,
+                                    preffixIcon: const Icon(Icons.person,
+                                      color: AppColor.kLightPurpleColor,
+                                    ),
+                                  );
+                                }) ),
+
+
+                                Container(
+                                    height: 60,
+                                    child: Consumer<AuthProvider>(builder: (context , authProvider, child){
+                                      return MyTextField(
+                                        obscureText: false,
+                                        errorText: "",
+                                        validator: (value){
+                                          if(value!.isEmpty){
+                                            return "Please enter email";
+                                          }
+                                          if(!isValidEmail(value)){
+                                            return "please enter a valid email ";
+                                          }
+                                          return null;
+                                        },
+                                        hintText: "Enter Email",
+                                        controller: authProvider.createAccountemailText,
+                                        preffixIcon: const Icon(Icons.email_outlined,
+                                          color: AppColor.kLightPurpleColor,
+                                        ),
+                                      );
+                                    }) ),
+
+                                Container(
+                                    height: 60,
+                                    child: Consumer<AuthProvider>(builder: (context , authProvider, child){
+                                      return MyTextField(
+                                        validator: (value){
+                                          if(value!.isEmpty){
+                                            return"Please enter password";
+                                          }
+                                          if(value.length> 6){
+                                            return"Password must be at least 6 character";
+                                          }
+                                          return null;
+                                        },
+                                        errorText: "",
+                                        obscureText:  authProvider.setPasswordVisibility,
+                                        hintText: "Set Password",
+                                        controller: authProvider.createAccountsetpasswordText,
+                                        preffixIcon: const Icon(Icons.lock_open_outlined,
+                                          color: AppColor.kLightPurpleColor,
+
+                                        ),
+                                        suffixIcon:AppIconButton(
+                                          icon: authProvider.setPasswordVisibility == false ?Icons.visibility_off:Icons.visibility,
+                                          onPressed: (){
+                                            authProvider.setPassword();
+                                          },
+                                        ) ,
+                                      );
+                                    }) ),
+
+                                Container(
+                                    height: 60,
+                                    child: Consumer<AuthProvider>(builder: (context , authProvider, child){
+                                      return MyTextField(
+                                        obscureText:  authProvider.confirmPaswordVisibility,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Please enter a password"; // Display error message if password is empty
+                                          }
+                                          if (value.length < 6) {
+                                            return "Password must be at least 6 characters"; // Display error message if password length is less than 6
+                                          }
+                                          if (value != authProvider.createAccountsetpasswordText.text) {
+                                            return "Passwords do not match"; // Display error message if passwords do not match
+                                          }
+                                          return null; // Return null if password is valid
+                                        },
+                                        errorText: "",
+                                        hintText: "Confirm Password",
+                                        controller: authProvider.createAccountconfirmpasswordText,
+                                        preffixIcon: const Icon(Icons.lock_open_outlined,
+                                          color: AppColor.kLightPurpleColor,
+                                        ),
+                                        suffixIcon:AppIconButton(
+                                          icon: authProvider.confirmPaswordVisibility == false? Icons.visibility_off:Icons.visibility,
+                                          onPressed: (){
+                                            authProvider.confirmPassword1();
+                                          },
+                                        ) ,
+                                      );
+                                    }) ),
+
+                                Container(
+                                  height: 40,
+                                  child: AppElevatedButton(title: "Create",onPressed: (){
+                                            if(formKey2.currentState!.validate()){
+                                             Get.back();
+                                            }
+
+                                  },),
+                                )
+                              ],
+                            ),
                           ),
                         )),
                   )),
@@ -218,12 +223,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     alignment: Alignment.bottomCenter,
                     child: InkWell(
                       onTap: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                            builder: (context) =>
-                            LoginScreen()),
-                        );
+                        Get.back();
                       },
                       child: Container(
                           padding: const EdgeInsets.only(left: 100),

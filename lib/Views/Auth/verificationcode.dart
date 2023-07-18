@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
+import 'package:get/route_manager.dart';
 import 'package:namazreminderapp/Views/Auth/resetPassword.dart';
 
 import '../../Utils/colors.dart';
 import '../../Utils/images.dart';
+import '../../Widget/app_elevated_button.dart';
 import 'Login.dart';
 
 class VerificationCodeScreen extends StatefulWidget {
@@ -92,8 +94,9 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 fieldHeight:40.0,
                                 fieldWidth: 40.0,
                                 borderWidth:1.0,
-                                activeBorderColor: Colors.pink,
-                                activeBackgroundColor: Colors.pink.shade100,
+
+                                activeBorderColor: AppColor.kPurpleColor,
+                                activeBackgroundColor:AppColor.kLightPurpleColor ,
                                 borderRadius: BorderRadius.circular(10.0),
                                 keyboardType: TextInputType.number,
                                 autoHideKeyboard: false,
@@ -115,27 +118,9 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                                 height: 12,
                               ),
 
-                              Center(
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColor.kPurpleColor,
-                                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),),),
-                                    onPressed: (
-
-                                        ) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ResetPasswordScreen()),
-                                      );
-
-                                    },
-                                    child: const Text("Change Password")),
-                              )
-                            ],
+                              AppElevatedButton(title: "Change Password",onPressed: (){
+                               Get.to(ResetPasswordScreen());
+                              },)                            ],
                           ),
                         )),
                   )),

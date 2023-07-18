@@ -47,6 +47,8 @@ class _PrayerSlient_modeState extends State<PrayerSlient_mode> {
                 color: Colors.white24,
                 height: 800,
                 child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: 5,
                   itemBuilder: ( context, index) {
                     return Padding(

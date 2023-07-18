@@ -1,14 +1,19 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:namazreminderapp/Provider/Authprovider.dart';
+import 'package:namazreminderapp/Widget/app_icon_button.dart';
+import 'package:provider/provider.dart';
 import 'package:namazreminderapp/Views/Auth/createaccount.dart';
 import 'package:namazreminderapp/Views/Auth/forgot.dart';
 import 'package:namazreminderapp/Widget/Textfield.dart';
-
 import '../../Utils/appstyle.dart';
 import '../../Utils/colors.dart';
 import '../../Utils/images.dart';
+import '../../Widget/app_elevated_button.dart';
+import '../../Widget/app_text_button.dart';
+import '../Home_Screen/homescreen.dart';
 
+// ? , selector , parameter
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -17,8 +22,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var emailText = TextEditingController();
-  var passwordText = TextEditingController();
+  final GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
+bool isValidEmail(String email) {
+  final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+  return emailRegex.hasMatch(email);
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,84 +84,84 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                               Text(
-                                "Login",
-                                style: AppStyle.textStyleBold18,
-                              ),
-                              Container(
-                                height: 30,
-                              ),
-                              Container(
-                                height: 45,
-                                child: MyTextField(
-                                  hintText: "Enter Email",
-
-                                  controller: emailText,
-                                  suffixIcon: const Icon(Icons.email_outlined,
-                                    color: AppColor.kLightPurpleColor,
-                                  ),
-                                )
-                              ),
-                              Container(
-                                height: 12,
-                              ),
-                              SizedBox(
-                                height: 45,
-                                child: TextFormField(
-                                  controller: passwordText,
-                                  decoration: InputDecoration(
-                                      suffixIcon: const Icon(
-                                        Icons.lock_open_outlined,
-                                        color: AppColor.kLightPurpleColor,
-                                      ),
-                                      hintText: "Password",
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: const BorderSide(
-                                            color: AppColor.kLightPurpleColor,
-                                            width: 1),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: const BorderSide(
-                                              color:
-                                                  AppColor.kLightPurpleColor))),
+                          child: Form(
+                            key: formKey1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                 Text(
+                                  "Login",
+                                  style: AppStyle.textStyleBold18,
                                 ),
-                              ),
-                              Center(
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                FortgotPasswordScreen()),
-                                      );
-                                    },
-                                    child: const Text(
-                                      "Forgot Password",
-                                      style: TextStyle(
+                                Container(
+                                  height: 30,
+                                ),
+                                Consumer<AuthProvider>(builder: (context , authProvider, child){
+                                  return Container(
+                                    height: 60,
+                                    child: MyTextField(
+                                      errorText: "",
+                                      obscureText: false,
+                                      validator: (value){
+                                        if (value!.isEmpty) {
+                                          return "Please enter an email"; // Display error message if email is empty
+                                        }
+                                        if (!isValidEmail(value)) {
+                                          return "Please enter a valid email"; // Display error message if email format is invalid
+                                        }
+                                        return null; // Return null if email is valid
+                                      },
+                                      hintText: "Enter Email",
+                                      controller: authProvider.emailText,
+                                      preffixIcon: const Icon(Icons.email_outlined,
                                         color: AppColor.kLightPurpleColor,
                                       ),
-                                    )),
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColor.kPurpleColor,
-                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),),),
-                                    onPressed: () {
-                                      },
-                                    child: const Text("Login")),
-                              )
-                            ],
+                                    ),
+                                  );
+                                }),
+
+                                Container(
+                                    height: 60,
+                                    //Todo is ko apny acces karna h with selector //selector , consumer , instance
+                                    child: Consumer<AuthProvider>(builder: (context , authProvider, child){
+                                      return MyTextField(
+                                        validator: (value){
+                                          if (value!.isEmpty) {
+                                            return "Please enter a password"; // Display error message if password is empty
+                                          }
+                                          if (value.length < 6) {
+                                            return "Password must be at least 6 characters"; // Display error message if password length is less than 6
+                                          }
+                                          return null; // Return null if password is valid
+                                        },
+                                        errorText: "",
+                                        obscureText: authProvider.passwordVisibility,
+                                        hintText: "Password",
+                                        controller: authProvider.passwordText,
+                                        preffixIcon: const Icon(Icons.lock_open_outlined,
+                                          color: AppColor.kLightPurpleColor,
+                                        ),
+                                        suffixIcon:AppIconButton(
+                                          icon: authProvider.passwordVisibility == false ? Icons.visibility_off:Icons.visibility ,
+                                          onPressed: (){
+                                            print("sabahat");
+                                           authProvider.loginPassword();
+                                          },
+                                        ) ,
+                                      );
+                                    }) ),
+                                AppTextButton(title: "Forgot Password",onPressed: (){
+                                  Get.to(FortgotPasswordScreen());
+                                },),
+                                AppElevatedButton(title: "Login",onPressed: (){
+                                  if(formKey1.currentState!.validate()){
+                                    print("Sabahat login");
+                                    Get.offAll(const HomeScreen(),);
+                                  }
+                                },)
+                              ],
+                            ),
                           ),
                         )),
                   )),
@@ -163,12 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.bottomCenter,
                     child: InkWell(
                       onTap: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                            builder: (context) =>
-                            const CreateAccount()),
-                        );
+                       Get.to(CreateAccount());
                       },
                       child: Container(
                           padding: const EdgeInsets.only(left: 100),
@@ -197,4 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
       //
     );
   }
+
+
 }
+

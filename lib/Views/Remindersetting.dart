@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Model/reminderscreenmodel.dart';
 import '../Utils/colors.dart';
 import '../Widget/textwidget.dart';
 
@@ -12,8 +13,30 @@ class ReminderSetting extends StatefulWidget {
 }
 
 class _ReminderSettingState extends State<ReminderSetting> {
-  List<String> listOfprayers = ["Fajer", "Zohar", "Asar", "Magrib", "Ishaa", ];
-  List<String> listOfminutes = ["10 Minutes", "15 Minutes", "20 Minutes", "25 Minutes", "30 Minutes", ];
+
+  List<ReminderSettingModel> data=[
+    ReminderSettingModel(
+        prayerName: 'Fajer',
+        minutes: '10 Minutes'
+    ),
+    ReminderSettingModel(
+        prayerName: 'Zohar',
+        minutes: '15 Minutes'
+    ),
+    ReminderSettingModel(
+        prayerName: 'Asar',
+        minutes: '20 Minutes'
+    ),
+    ReminderSettingModel(
+        prayerName: 'Magrib',
+        minutes: '25 Minutes'
+    ),
+    ReminderSettingModel(
+        prayerName: 'Ishaa',
+        minutes: '30 Minutes'
+    ),
+
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,17 +91,18 @@ class _ReminderSettingState extends State<ReminderSetting> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child:   Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+
+
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextWidget(title:listOfprayers[index],fontSize: 13,fontFamily:"FuturaMediumBT.ttf" ,
+                                  TextWidget(title:data[index].prayerName,fontSize: 13,fontFamily:"FuturaMediumBT.ttf" ,
                                     fontWeight: FontWeight.bold,),
-                                  const SizedBox(width: 70,),
+                                  //const SizedBox(width: 70,),
                                   TextWidget(title: 'Reminder me before',color:Colors.grey,fontSize: 12,),
-                                  const SizedBox(width: 5,),
-                                  TextWidget(title: listOfminutes[index],color: AppColor.kPurpleColor,fontSize: 12,)
+                                  //const SizedBox(width: 5,),
+                                  TextWidget(title: data[index].minutes,color: AppColor.kPurpleColor,fontSize: 12,)
 
 
                                 ],

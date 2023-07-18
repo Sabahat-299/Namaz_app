@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:namazreminderapp/Provider/homescreen_provider.dart';
 import 'package:namazreminderapp/Utils/images.dart';
+import 'package:namazreminderapp/Views/Auth/Login.dart';
+import 'package:provider/provider.dart';
 
 
+import '../../Model/homescreenmodel.dart';
 import '../../Utils/colors.dart';
+import '../../Widget/app_icon_button.dart';
 import '../../Widget/textwidget.dart';
 import '../Remindersetting.dart';
 import '../prayersilentmode.dart';
@@ -18,30 +24,54 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DateTime selectedDate = DateTime.now(); // TO tracking date
-
   int currentDateSelectedIndex = 0; //For Horizontal Date
   ScrollController scrollController =
   ScrollController(); //To Track Scroll of ListView
-  List<String> listOfMonths = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
+List<String> listofMonths =[
+  "Jan",
+  "Feb",
+  "March",
+  "April",
+  "May",
+  "Jun",
+  "july",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"];
+List<String> listOfDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  List<HomeScreenModel> data = [
+    HomeScreenModel(
+
+        prayerName: "Fajr",
+        time: '4:30'),
+
+    HomeScreenModel(
+
+      prayerName: "Zohar",
+      time: "2:00"),
+
+    HomeScreenModel(
+
+      prayerName:  "Asar",
+      time:  "5:30",),
+    HomeScreenModel(
+
+      prayerName:  "Magrib",
+      time:  "7:00", ),
+    HomeScreenModel(
+
+      prayerName: "Ishaa",
+      time:  "9:00",),
+
+
+
   ];
 
-  List<String> listOfDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  List<String> listOfprayers = ["Fajr", "Zohar", "Asar", "Magrib", "Ishaa", ];
-  List<String> listOftime = ["4:30", "2:00", "5:30", "7:00", "9:00", ];
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         //backgroundColor: Colors.grey,
@@ -164,7 +194,7 @@ Container(height: 20,),
                       child: Text(
                         selectedDate.day.toString() +
                             '-' +
-                            listOfMonths[selectedDate.month - 1] +
+                            listofMonths[selectedDate.month - 1] +
                             ', ' +
                             selectedDate.year.toString(),
                         style: TextStyle(
@@ -212,7 +242,7 @@ Container(height: 20,),
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        listOfMonths[DateTime.now()
+                                       listofMonths[DateTime.now()
                                             .add(Duration(days: index))
                                             .month -
                                             1]
@@ -242,7 +272,7 @@ Container(height: 20,),
                                         height: 5,
                                       ),
                                       Text(
-                                        listOfDays[DateTime.now()
+                                          listOfDays[DateTime.now()
                                             .add(Duration(days: index))
                                             .weekday -
                                             1]
@@ -265,7 +295,7 @@ Container(height: 20,),
                       color: Colors.white24,
                       height: 300,
                       child: ListView.builder(
-                        itemCount: listOfprayers.length,
+                      itemCount: data.length,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -286,20 +316,31 @@ Container(height: 20,),
                           ),
                               
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Center(child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(listOfprayers[index],style: const TextStyle(fontFamily: "FuturaBoldBT.ttf"),),
-                                  )),
-                                  const SizedBox(width:120,),
-                                  Center(child: Text(listOftime[index])),
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                                  const SizedBox(width:70,),
-                                  const Align(alignment:Alignment.centerRight,
-                                      child: Icon(Icons.check_circle,size: 20,color: Colors.green,)
-                                  )
+                                children:  [
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(data[index].prayerName.toString(),style: TextStyle(fontFamily: ""),),
+                                  ),
+                                  //SizedBox(width:120,),
+                                  Center(child: Text(data[index].time.toString())),
+
+                                  //SizedBox(width:10,),
+
+
+                                     Consumer<HomeScreenProvider>(builder: ( context, homeprovider,child){
+                                       return AppIconButton(
+                                         icon:CupertinoIcons.check_mark_circled_solid,
+                                         color: homeprovider.checkMark == false ? AppColor.kLightPurpleColor: Colors.grey,
+                                         onPressed: (
+                                             ){
+                                           homeprovider.checkButton();
+                                         },);
+                                     }
+
+                                     )
+
 
 
 
@@ -354,14 +395,14 @@ Container(height: 20,),
         leading: const Icon(Icons.search),
         title: TextWidget(title: 'Prayer Silent Mode',),
         onTap: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>PrayerSlient_mode()),);
+         Get.to(PrayerSlient_mode());
         },
       ),
       ListTile(
         leading: const Icon(Icons.doorbell),
         title: TextWidget(title: 'Reminder Setting',),
         onTap: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ReminderSetting()),);
+          Get.to(ReminderSetting());
         },
       ),
       const SizedBox(height: 170,),

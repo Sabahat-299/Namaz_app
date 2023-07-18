@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:namazreminderapp/Views/Auth/resetPassword.dart';
 import 'package:namazreminderapp/Views/Auth/verificationcode.dart';
 import 'package:namazreminderapp/Widget/Textfield.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/Authprovider.dart';
 import '../../Utils/colors.dart';
 import '../../Utils/images.dart';
+import '../../Widget/app_elevated_button.dart';
 import 'Login.dart';
 
 class FortgotPasswordScreen extends StatefulWidget {
@@ -13,9 +18,12 @@ class FortgotPasswordScreen extends StatefulWidget {
   @override
   State<FortgotPasswordScreen> createState() => _FortgotPasswordScreenState();
 }
-
+final GlobalKey<FormState> formKey3 = GlobalKey<FormState>();
+bool isValidEmail(String email) {
+  final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+  return emailRegex.hasMatch(email);
+}
 class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
-  var emailText = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,46 +81,52 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Forgot Password",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold,color: AppColor.kPurpleColor),
-                              ),
-                              Container(
-                                height: 30,
-                              ),
-
-                              SizedBox(
-                                height: 45,
-                                child: MyTextField(
-                                  controller: emailText,
-                                  // icon: Icons.email_outlined,
-                                  hintText: "Enter Email",
+                          child: Form(
+                            key: formKey3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Forgot Password",
+                                  style: TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.bold,color: AppColor.kPurpleColor),
                                 ),
-                              ),
-                             Container(height: 11,),
-                              Center(
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColor.kPurpleColor,
-                                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),),),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const VerificationCodeScreen()),
+                                Container(
+                                  height: 25,
+                                ),
+
+                                Container(
+                                    height: 60,
+                                    child: Consumer<AuthProvider>(builder: (context , authProvider, child){
+                                      return MyTextField(
+                                        obscureText: false,
+                                        hintText: "Enter Email",
+                                        errorText: "",
+                                        validator: (value){
+                                          if(value!.isEmpty){
+                                            return "Please enter email";
+                                          }
+                                          if(!isValidEmail(value)){
+                                            return "please enter a valid email ";
+                                          }
+                                          return null;
+                                        },
+                                        controller: authProvider.forgotPasswordText,
+                                        preffixIcon: const Icon(Icons.email_outlined,
+                                          color: AppColor.kLightPurpleColor,
+                                        ),
                                       );
-                                    },
-                                    child: const Text("Send Code")),
-                              )
-                            ],
+                                    }) ),
+
+                                AppElevatedButton(title: "Change Code",onPressed: (){
+                                  if(formKey3.currentState!.validate()){
+                                   Get.to(VerificationCodeScreen());
+                                  }
+
+                                },)
+                              ],
+                            ),
                           ),
                         )),
                   )),
@@ -122,12 +136,7 @@ class _FortgotPasswordScreenState extends State<FortgotPasswordScreen> {
                     alignment: Alignment.bottomCenter,
                     child: InkWell(
                       onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  LoginScreen()),
-                        );
+                        Get.back();
                       },
                       child: Container(
                           padding: const EdgeInsets.only(left: 100),
